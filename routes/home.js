@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
 });
 
 router
-  .get("/login", (req, res, next) => {
+  .get("/login", notLoggedIn, (req, res, next) => {
     res.render("login");
   })
   .post(() => {
@@ -19,25 +19,49 @@ router
 
 router.post(
   "/login",
+  notLoggedIn,
   passport.authenticate("local-login", {
-    successRedirect: "/profile",
-    failureRedirect: "/user/login",
+    successRedirect: "/user/profile",
+    failureRedirect: "/login",
     failureFlash: true,
   })
 );
 
-router.get("profile", (req, res, next) => {
-    res.send("hello profie")
-})
+router.get("/user/profile", isLoggedIn, (req, res, next) => {
+  res.render("profile");
+});
 
-router.get("/sign-up", (req, res, next) => {
+router.get("/sign-up", notLoggedIn, (req, res, next) => {
   res.render("sign-up");
 });
 
-router.post("/sign-up", passport.authenticate("local-signup", {
-    successRedirect: "/profile",
-    failureRedirect: "/user/login",
+router.post(
+  "/sign-up",
+  notLoggedIn,
+  passport.authenticate("local-signup", {
+    successRedirect: "/user/profile",
+    failureRedirect: "/login",
     failureFlash: true,
-  }) );
+  })
+);
+
+router.get("/logout", isLoggedIn, function (req, res, next) {
+  req.logout();
+  res.redirect("/");
+});
 
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+}
+
+function notLoggedIn(req, res, next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+}
