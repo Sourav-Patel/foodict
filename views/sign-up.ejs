@@ -1,0 +1,94 @@
+<%- include('./partials/header.ejs') %> <%- include('./partials/navbar.ejs') %>
+
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  "
+>
+  <a
+    class="btn"
+    href="/users/googleauth"
+    role="button"
+    style="
+      width: fit-content;
+      text-transform: none;
+      background-color: white;
+      border: rgb(167, 164, 164) 1px solid;
+    "
+  >
+    <img
+      width="20px"
+      style="margin-bottom: 3px; margin-right: 5px"
+      alt="Google sign-in"
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+    />
+    Sign up with Google
+  </a>
+</div>
+
+<div style="padding: 2rem">
+  <form class="row g-3" action="/sign-up" method="POST">
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="First name"
+        aria-label="First name"
+        name="fname"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Last name"
+        aria-label="Last name"
+        name="lname"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        required
+      />
+    </div>
+    <div class="col-12">
+      <label for="phone_number" class="form-label">Phone Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone_number"
+        name="phone_number"
+        required
+      />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+  </form>
+
+  Already have account
+  <a href="/login">Login</a>
+</div>
+
+<%- include('./partials/footer.ejs') %>
